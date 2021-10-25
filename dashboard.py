@@ -96,9 +96,13 @@ class DashboardGov(object):
         :param: agency
         :return:
         """
-        self.browser.find_elements(
-            '//div[@id="agency-tiles-widget"]//div[@class="col-sm-4 text-center noUnderline"]//div[@class="row top-gutter-20"]//div[@class="col-sm-12"]')[
-            agency].click()
+        try:
+            self.browser.find_elements(
+                '//div[@id="agency-tiles-widget"]//div[@class="col-sm-4 text-center noUnderline"]//div[@class="row top-gutter-20"]//div[@class="col-sm-12"]')[
+                agency].click()
+        except Exception as e:
+            print(e)
+            return
         self.get_table_header()
         for head in self.table_headers:
             self.investment_details_table_data[head] = []
