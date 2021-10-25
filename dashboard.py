@@ -45,6 +45,7 @@ class DashboardGov(object):
         while True:
             agencies = self.browser.find_elements(
                 '//div[@id="agency-tiles-widget"]//div[@class="col-sm-4 text-center noUnderline"]')
+            print("Agencies length : ", agencies)
             if len(agencies) > 0:
                 break
             else:
