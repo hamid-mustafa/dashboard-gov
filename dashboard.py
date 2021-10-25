@@ -41,8 +41,16 @@ class DashboardGov(object):
         self.browser.find_element('//a[@class="btn btn-default btn-lg-2x trend_sans_oneregular"]').click()
         time.sleep(1)
         self.browser.wait_until_page_contains('To get started,')
-        agencies = self.browser.find_elements(
-            '//div[@id="agency-tiles-widget"]//div[@class="col-sm-4 text-center noUnderline"]')
+        break_counter = 1
+        while True:
+            agencies = self.browser.find_elements(
+                '//div[@id="agency-tiles-widget"]//div[@class="col-sm-4 text-center noUnderline"]')
+            if len(agencies) > 0:
+                break
+            else:
+                break_counter += 1
+                if break_counter >= 10:
+                    break
         self.agencies_profile_data = {'Companies': [], 'Amount': []}
         for agency in agencies:
             agency_split = agency.text.split("\n")
