@@ -39,13 +39,11 @@ class DashboardGov(object):
         """
         self.browser.wait_until_page_contains("DIVE IN")
         self.browser.find_element('//a[@class="btn btn-default btn-lg-2x trend_sans_oneregular"]').click()
-        time.sleep(1)
-        self.browser.wait_until_page_contains('To get started,')
+        time.sleep(5)
         break_counter = 1
         while True:
-            agencies = self.browser.find_elements(
-                '//div[@id="agency-tiles-widget"]//div[@class="col-sm-4 text-center noUnderline"]')
-            print("Agencies length : ", agencies)
+            agencies = self.browser.find_elements('//div[@id="agency-tiles-widget"]//div[@class="col-sm-4 text-center noUnderline"]')
+            print("Agencies length : ", len(agencies))
             if len(agencies) > 0:
                 break
             else:
