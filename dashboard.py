@@ -97,6 +97,8 @@ class DashboardGov(object):
         :return:
         """
         try:
+            print("=============== Agency number ========= ", agency, type(agency), len(self.browser.find_elements(
+                '//div[@id="agency-tiles-widget"]//div[@class="col-sm-4 text-center noUnderline"]//div[@class="row top-gutter-20"]//div[@class="col-sm-12"]')))
             self.browser.find_elements(
                 '//div[@id="agency-tiles-widget"]//div[@class="col-sm-4 text-center noUnderline"]//div[@class="row top-gutter-20"]//div[@class="col-sm-12"]')[
                 agency].click()
@@ -158,17 +160,18 @@ class DashboardGov(object):
                 pdfs_data.update({link["uii"]: new_string})
             except Exception as e:
                 print(e)
-        for i, value in enumerate(self.investment_details_table_data['Investment Title']):
-            title_matched_string = ''
-            uii_matched_string = ''
-            for key, text in pdfs_data.items():
-                if self.investment_details_table_data['Investment Title'][i] in text:
-                    title_matched_string = title_matched_string + f'{key}'
-                if self.investment_details_table_data['UII'][i] in text:
-                    uii_matched_string = uii_matched_string + f'{key}'
-            self.investment_details_table_data['Investment Title Matched'].append("Not Matched in any PDF" if not title_matched_string else title_matched_string)
-            self.investment_details_table_data['UII Matched'].append("Not Matched in any PDF" if not uii_matched_string else uii_matched_string)
-        self.write_investment_data_to_excel()
+        if self.investment_details_table_data.get('Investment Title'):
+            for i, value in enumerate(self.investment_details_table_data['Investment Title']):
+                title_matched_string = ''
+                uii_matched_string = ''
+                for key, text in pdfs_data.items():
+                    if self.investment_details_table_data['Investment Title'][i] in text:
+                        title_matched_string = title_matched_string + f'{key}'
+                    if self.investment_details_table_data['UII'][i] in text:
+                        uii_matched_string = uii_matched_string + f'{key}'
+                self.investment_details_table_data['Investment Title Matched'].append("Not Matched in any PDF" if not title_matched_string else title_matched_string)
+                self.investment_details_table_data['UII Matched'].append("Not Matched in any PDF" if not uii_matched_string else uii_matched_string)
+            self.write_investment_data_to_excel()
 
     def downloading_pdfs(self):
         """
