@@ -96,15 +96,21 @@ class DashboardGov(object):
         :param: agency
         :return:
         """
-        try:
+        break_count = 1
+        while True:
             print("=============== Agency number ========= ", agency, type(agency), len(self.browser.find_elements(
                 '//div[@id="agency-tiles-widget"]//div[@class="col-sm-4 text-center noUnderline"]//div[@class="row top-gutter-20"]//div[@class="col-sm-12"]')))
-            self.browser.find_elements(
-                '//div[@id="agency-tiles-widget"]//div[@class="col-sm-4 text-center noUnderline"]//div[@class="row top-gutter-20"]//div[@class="col-sm-12"]')[
-                agency].click()
-        except Exception as e:
-            print(e)
-            return
+            if len(self.browser.find_elements(
+                '//div[@id="agency-tiles-widget"]//div[@class="col-sm-4 text-center noUnderline"]//div[@class="row top-gutter-20"]//div[@class="col-sm-12"]')) > 0:
+                self.browser.find_elements(
+                    '//div[@id="agency-tiles-widget"]//div[@class="col-sm-4 text-center noUnderline"]//div[@class="row top-gutter-20"]//div[@class="col-sm-12"]')[
+                    agency].click()
+                break
+            else:
+                break_count += 1
+                time.sleep(1)
+                if break_count >= 10:
+                    break
         self.get_table_header()
         for head in self.table_headers:
             self.investment_details_table_data[head] = []
