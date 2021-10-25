@@ -49,7 +49,7 @@ class DashboardGov(object):
             self.agencies_profile_data['Companies'].append(agency_split[0])
             self.agencies_profile_data['Amount'].append(agency_split[2])
         wb = self.lib.create_workbook(f"{self.download_in}/Agencies.xlsx")
-        wb.set_cell_value(1, 1, "Company-Name")
+        wb.set_cell_value(1, 1, "Companies")
         wb.set_cell_value(1, 2, "Amount")
         wb.append_worksheet("Sheet", self.agencies_profile_data, header=True, start=1)
         wb.save()
@@ -192,4 +192,4 @@ class DashboardGov(object):
 
 
 if __name__ == "__main__":
-    dashboard = DashboardGov("https://itdashboard.gov/", "output", 9)
+    dashboard = DashboardGov("https://itdashboard.gov/", "output", 1)
